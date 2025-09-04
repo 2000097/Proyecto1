@@ -1,0 +1,10 @@
+# Map your CSV columns to the canonical names used in the pipeline.
+# Adjust the right-hand side to match your actual columns.
+canonical_to_source:
+  bet_id: "bet_id"
+  user_id: "user_id"
+  timestamp: "channel"
+  amount: "stake_amount"
+  ip_address: "minutes_before_close"
+  location: "location"
+  label: "label"

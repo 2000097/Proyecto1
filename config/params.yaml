@@ -1,0 +1,30 @@
+
+# Central parameters for paths and thresholds
+project:
+  name: lottery-fraud-mlops
+  default_database: lottery_fraud_db
+
+paths:
+  raw_csv: "dbfs:/mnt/lottery_bets.csv"   # upload your csv to DBFS or mount; adjust if needed
+  bronze_table: "delta.`dbfs:/tmp/lottery/bronze_bets`"
+  silver_table: "delta.`dbfs:/tmp/lottery/silver_bets`"
+  dq_log_table: "delta.`dbfs:/tmp/lottery/dq_logs`"
+  features_table: "delta.`dbfs:/tmp/lottery/features_user_week`"
+
+quality_rules:
+  amount_min: 0.0
+  amount_max: 10000.0    # adjust to business limits
+  require_unique_by: "bet_id"
+  required_columns: ["bet_id", "user_id", "timestamp", "amount"]
+  allowed_null_rate: 0.05  # alert if higher
+
+features:
+  lookback_days: 7
+  ip_risk_decay_days: 30
+  min_user_activity: 1
+
+modeling:
+  label_col: "label"
+  positive_label: 1
+  test_size: 0.2
+  random_state: 42
